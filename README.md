@@ -45,9 +45,7 @@ Los flujos de entrada y salida deben manejarse correctamente.
 El cliente y el servidor deben manejar adecuadamente las excepciones (errores de conexión, lectura/escritura de archivos, etc.).
 Este es el detalle de los nuevos requisitos:
 
-Selección dinámica de archivos: El cliente puede elegir cualquier archivo de su sistema para enviarlo al servidor mediante un cuadro de diálogo de selección de archivos (
-
-JOptionChoiser ).
+Selección dinámica de archivos: El cliente puede elegir cualquier archivo de su sistema para enviarlo al servidor mediante un cuadro de diálogo de selección de archivos (JOptionChoiser ).
 
 Colores en consola: Usar códigos ANSI para que el texto de la consola se muestre en diferentes colores (verde para éxito, rojo para error, azul para mensajes informativos).
 
