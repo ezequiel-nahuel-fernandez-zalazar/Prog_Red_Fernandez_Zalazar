@@ -1,5 +1,15 @@
 # Prog_Red_Fernandez_Zalazar
 
+Alumno: Ezequiel Nahuel Fernandez Zalazar
+
+Correo: ezequiel.fernandez.zalazar.e.t32.co@gmail.com
+
+Curso y division: 6° 1° Computación
+
+Docente: Gonzalo Consorti
+
+Materia: Administración de sistemas y redes
+
 # TP 4 - Socket Mini-chat SEGURO
 Desarrollar un sistema de chat donde los clientes puedan intercambiar mensajes de texto y archivos, mientras que el servidor redirige los mensajes a todos los clientes conectados, además de permitir la mensajería privada. Todos los mensajes deben ser encriptados para asegurar la privacidad, y los comandos específicos deben estar disponibles para los usuarios.
 
