@@ -30,7 +30,6 @@ public class Mensaje implements Serializable {
         this(tipo, datos, null);
     }
 
-    // Getters
     public Tipo getTipo() { return tipo; }
     public String getDatos() { return datos; }
     public Object getObjeto() { return objeto; }

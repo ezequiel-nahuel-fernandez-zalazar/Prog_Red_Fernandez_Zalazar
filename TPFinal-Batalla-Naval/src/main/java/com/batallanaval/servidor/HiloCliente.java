@@ -25,7 +25,6 @@ public class HiloCliente implements Runnable {
         ObjectOutputStream tempOut = null;
         ObjectInputStream tempIn = null;
         try {
-            // Inicialización de flujos: OUT antes de IN
             tempOut = new ObjectOutputStream(socket.getOutputStream());
             tempIn = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
@@ -35,7 +34,6 @@ public class HiloCliente implements Runnable {
         this.in = tempIn;
     }
 
-    // Getters y Setters
     public void setOponente(HiloCliente oponente) { this.oponente = oponente; }
     public void setPartida(ManejadorPartida partida) { this.partida = partida; }
     public Semaphore getTableroListo() { return tableroListo; }
@@ -43,6 +41,10 @@ public class HiloCliente implements Runnable {
     public void enviarMensaje(Mensaje mensaje) {
         if (out == null) return;
         try {
+            if (mensaje.getTipo() == Mensaje.Tipo.ENVIO_TABLERO_OPONENTE) {
+                out.reset();
+            }
+            
             out.writeObject(mensaje);
             out.flush();
         } catch (SocketException e) {
@@ -55,11 +57,8 @@ public class HiloCliente implements Runnable {
     @Override
     public void run() {
         try {
-            // 1. Fase de Posicionamiento
             recibirPosicionamiento();
             tableroListo.release(); 
-
-            // 2. Bucle principal de escucha y manejo de movimientos
             while (!socket.isClosed()) {
                 Mensaje mensaje = (Mensaje) in.readObject();
                 
@@ -90,35 +89,27 @@ public class HiloCliente implements Runnable {
             enviarMensaje(new Mensaje(Mensaje.Tipo.RESULTADO_DISPARO, "ESPERA_TU_TURNO"));
             return;
         }
-
         try {
             String[] parts = coordenadas.split(",");
             int fila = Integer.parseInt(parts[0].trim());
             int col = Integer.parseInt(parts[1].trim());
-
-            // Disparar en el tablero del oponente
             String resultado = oponente.tableroPropio.disparar(fila, col);
             
-            // Notificar al atacante
             enviarMensaje(new Mensaje(Mensaje.Tipo.RESULTADO_DISPARO, resultado));
             
-            // Notificar al oponente que ha sido atacado
             oponente.enviarMensaje(new Mensaje(Mensaje.Tipo.ACTUALIZAR_ESTADO, "¡Te atacaron en (" + fila + "," + col + ")! Resultado: " + resultado));
             
-            // Reenviar el tablero del oponente al atacante para que lo visualice
             enviarMensaje(new Mensaje(Mensaje.Tipo.ENVIO_TABLERO_OPONENTE, "Tablero oponente actualizado", oponente.tableroPropio));
-
-            // LÓGICA DE CAMBIO DE TURNO
             
-            // 1. Verificar si el oponente fue hundido completamente
             if (oponente.tableroPropio.todosLosBarcosCaidos()) {
                 partida.notificarFinPartida(this);
             } 
-            // 2. Si no es un impacto ni un hundimiento (es decir, fue Agua), cambiar el turno.
-            else if (!resultado.contains("IMPACTO") && !resultado.contains("HUNDIDO")) { 
+            else if (resultado.contains("IMPACTO") || resultado.contains("HUNDIDO")) { 
+                enviarMensaje(new Mensaje(Mensaje.Tipo.ACTUALIZAR_ESTADO, "¡Turno mantenido por impacto! Dispara de nuevo."));
+            }
+            else { 
                 partida.cambiarTurno();
             }
-
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             enviarMensaje(new Mensaje(Mensaje.Tipo.RESULTADO_DISPARO, "COORDENADAS_INVALIDAS"));
         }

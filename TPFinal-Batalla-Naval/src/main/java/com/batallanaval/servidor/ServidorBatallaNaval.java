@@ -12,12 +12,10 @@ public class ServidorBatallaNaval {
     private final ConcurrentLinkedQueue<Socket> salaDeEspera = new ConcurrentLinkedQueue<>();
     private int contadorPartidas = 0;
     
-    // Java 17 Recomendación: Pool de hilos para manejar múltiples partidas simultáneamente
     private final ExecutorService pool = Executors.newCachedThreadPool(); 
 
     public void iniciar() {
         try (ServerSocket serverSocket = new ServerSocket(PUERTO)) {
-            // Solución al error "Address already in use: bind"
             serverSocket.setReuseAddress(true); 
             
             System.out.println("🚀 Servidor de Batalla Naval iniciado en el puerto " + PUERTO);
@@ -36,7 +34,6 @@ public class ServidorBatallaNaval {
                     contadorPartidas++;
                     ManejadorPartida partida = new ManejadorPartida(jugador1, jugador2, "Partida " + contadorPartidas);
                     
-                    // Ejecutar la partida en un hilo del pool
                     pool.execute(partida); 
                     System.out.println("\n--- Partida #" + contadorPartidas + " creada. Esperando posicionamiento. ---\n");
                 }
@@ -44,7 +41,7 @@ public class ServidorBatallaNaval {
         } catch (IOException e) {
             System.err.println("❌ Error grave en el Servidor: " + e.getMessage());
         } finally {
-            pool.shutdown(); // Cerrar el pool de hilos al finalizar
+            pool.shutdown();
         }
     }
 

@@ -4,26 +4,34 @@ import java.io.Serializable;
 
 public class Barco implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private final String nombre;
     private final int longitud;
-    private int impactos;
+    private int impactosRecibidos;
 
     public Barco(String nombre, int longitud) {
         this.nombre = nombre;
         this.longitud = longitud;
-        this.impactos = 0;
+        this.impactosRecibidos = 0;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getLongitud() {
+        return longitud;
+    }
+
+    public int getImpactosRecibidos() {
+        return impactosRecibidos;
     }
 
     public void recibirImpacto() {
-        this.impactos++;
+        this.impactosRecibidos++;
     }
 
     public boolean estaHundido() {
-        return impactos >= longitud;
+        return impactosRecibidos >= longitud;
     }
-
-    // Getters
-    public String getNombre() { return nombre; }
-    public int getLongitud() { return longitud; }
-    public int getImpactos() { return impactos; }
 }

@@ -34,21 +34,17 @@ public class ClienteBatallaNaval {
             socket = new Socket(serverIp, port);
             System.out.println("Conectado al servidor. Esperando compañero...");
 
-            // Inicialización de flujos
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             tableroPropio = new Tablero();
             tableroOponente = new Tablero(); 
 
-            // 2. Posicionamiento de Barcos
             posicionarBarcos();
 
-            // Enviar el tablero propio al servidor
             out.writeObject(new Mensaje(Mensaje.Tipo.POSICIONAMIENTO_OK, "Tablero listo", tableroPropio));
             out.flush();
             System.out.println("Barcos posicionados. Esperando inicio de partida...");
 
-            // Iniciar el bucle principal de lectura
             buclePrincipalJuego();
 
         } catch (IOException e) {
@@ -76,7 +72,6 @@ public class ClienteBatallaNaval {
                 System.out.print("\nSelecciona un barco (ej. Portaaviones): ");
                 String nombreBarco = scanner.nextLine().trim();
                 
-                // Uso de streams y lambdas (Requiere Java 8+)
                 Barco barcoSel = barcosRestantes.stream()
                     .filter(b -> b.getNombre().equalsIgnoreCase(nombreBarco))
                     .findFirst().orElse(null);
@@ -121,7 +116,7 @@ public class ClienteBatallaNaval {
                         break;
                     case ACTUALIZAR_ESTADO:
                         System.out.println("\n*** NOTIFICACION: " + mensaje.getDatos() + " ***");
-                        if (mensaje.getDatos().contains("¡Es tu turno!")) {
+                        if (mensaje.getDatos().contains("tu turno") || mensaje.getDatos().contains("Dispara de nuevo")) {
                             mostrarAmbosTableros();
                             pedirDisparo();
                         }
@@ -171,7 +166,6 @@ public class ClienteBatallaNaval {
         }
     }
     
-    // Uso de Text Blocks para la visualización (Java 17 Feature)
     private void mostrarAmbosTableros() {
         System.out.println("\n" + """
             ==================================
