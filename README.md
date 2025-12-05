@@ -1,11 +1,5 @@
 Programación Sobre Redes 2025
 
-Gonzalez Herrera Agustina Sol
-
-Mail: gonzalez.h.agustina@gmail.com
-
-Mail secundario: gus.g.backup@gmail.com
-
 Ezequiel Nahuel Fernadnez Zalazar
 
 Mail:ezequiel.fernandez.zalazar.e.t32.co@gmail.com
@@ -17,12 +11,6 @@ ET32 de14
 Gonzalo Nicolás Consorti
 
 Profesor de la materia
-
-
-
-Contenido de la rama
-
-
 
 Consigna
 
