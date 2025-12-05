@@ -1,8 +1,5 @@
 package Comun.mensajes;
 
-/**
- * Mensaje del servidor al cliente con el resultado de un disparo
- */
 public class MensajeResultadoDisparo extends Mensaje {
     private static final long serialVersionUID = 1L;
     
@@ -15,8 +12,8 @@ public class MensajeResultadoDisparo extends Mensaje {
     private int fila;
     private int columna;
     private ResultadoDisparo resultado;
-    private String nombreBarcoHundido; // Solo si resultado == HUNDIDO
-    private boolean disparoPropio; // true si fue mi disparo, false si fue del oponente
+    private String nombreBarcoHundido; 
+    private boolean disparoPropio; 
     
     public MensajeResultadoDisparo(int fila, int columna, ResultadoDisparo resultado, 
                                     boolean disparoPropio) {
@@ -33,7 +30,6 @@ public class MensajeResultadoDisparo extends Mensaje {
         this.nombreBarcoHundido = nombreBarcoHundido;
     }
     
-    // Getters
     public int getFila() {
         return fila;
     }

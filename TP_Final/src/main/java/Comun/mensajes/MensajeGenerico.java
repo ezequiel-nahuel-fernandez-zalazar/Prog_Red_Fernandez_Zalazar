@@ -1,8 +1,5 @@
 package Comun.mensajes;
 
-/**
- * Mensaje genérico para comunicaciones simples
- */
 public class MensajeGenerico extends Mensaje {
     private static final long serialVersionUID = 1L;
     

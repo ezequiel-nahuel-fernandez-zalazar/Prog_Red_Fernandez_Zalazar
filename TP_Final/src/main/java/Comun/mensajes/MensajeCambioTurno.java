@@ -1,8 +1,5 @@
 package Comun.mensajes;
 
-/**
- * Mensaje del servidor notificando de quién es el turno
- */
 public class MensajeCambioTurno extends Mensaje {
     private static final long serialVersionUID = 1L;
     

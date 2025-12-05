@@ -1,8 +1,5 @@
 package Comun.mensajes;
 
-/**
- * Mensaje enviado por el cliente al conectarse al servidor
- */
 public class MensajeConexion extends Mensaje {
     private static final long serialVersionUID = 1L;
     

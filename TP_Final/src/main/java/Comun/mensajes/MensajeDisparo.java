@@ -1,8 +1,5 @@
 package Comun.mensajes;
 
-/**
- * Mensaje para enviar un disparo del cliente al servidor
- */
 public class MensajeDisparo extends Mensaje {
     private static final long serialVersionUID = 1L;
     

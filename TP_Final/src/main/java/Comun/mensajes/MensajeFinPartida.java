@@ -1,8 +1,5 @@
 package Comun.mensajes;
 
-/**
- * Mensaje del servidor notificando el fin de la partida
- */
 public class MensajeFinPartida extends Mensaje {
     private static final long serialVersionUID = 1L;
     

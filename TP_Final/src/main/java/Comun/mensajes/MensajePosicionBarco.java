@@ -1,8 +1,5 @@
 package Comun.mensajes;
 
-/**
- * Mensaje para enviar la posición de un barco al servidor
- */
 public class MensajePosicionBarco extends Mensaje {
     private static final long serialVersionUID = 1L;
     
@@ -22,7 +19,6 @@ public class MensajePosicionBarco extends Mensaje {
         this.horizontal = horizontal;
     }
     
-    // Getters
     public String getNombreBarco() {
         return nombreBarco;
     }

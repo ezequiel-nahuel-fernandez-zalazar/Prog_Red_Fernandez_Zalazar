@@ -2,14 +2,9 @@ package Comun.mensajes;
 
 import java.io.Serializable;
 
-/**
- * Clase base abstracta para todos los mensajes del protocolo
- * Implementa Serializable para poder enviarse por la red
- */
 public abstract class Mensaje implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    // Tipos de mensaje
     public enum TipoMensaje {
         CONEXION,
         POSICION_BARCO,
@@ -22,7 +17,7 @@ public abstract class Mensaje implements Serializable {
     }
     
     private TipoMensaje tipo;
-    private String contenido; // Mensaje adicional opcional
+    private String contenido;
     
     public Mensaje(TipoMensaje tipo) {
         this.tipo = tipo;
@@ -33,7 +28,6 @@ public abstract class Mensaje implements Serializable {
         this.contenido = contenido;
     }
     
-    // Getters
     public TipoMensaje getTipo() {
         return tipo;
     }

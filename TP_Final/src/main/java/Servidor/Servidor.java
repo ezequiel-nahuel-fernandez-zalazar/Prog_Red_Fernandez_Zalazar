@@ -3,10 +3,6 @@ package Servidor;
 import java.io.*;
 import java.net.*;
 
-/**
- * Servidor mejorado con soporte para múltiples partidas simultáneas
- * Usa hilos para manejar cada cliente de forma concurrente
- */
 public class Servidor {
     private static final int PUERTO = 5000;
     private ServerSocket serverSocket;
@@ -25,10 +21,7 @@ public class Servidor {
         Servidor servidor = new Servidor();
         servidor.iniciar();
     }
-    
-    /**
-     * Inicia el servidor y acepta conexiones infinitamente
-     */
+
     public void iniciar() {
         try {
             serverSocket = new ServerSocket(PUERTO);
@@ -40,15 +33,9 @@ public class Servidor {
             System.out.println("✓ Servidor iniciado en puerto " + PUERTO);
             System.out.println("✓ Soporte para múltiples partidas simultáneas");
             System.out.println("✓ Esperando conexiones de jugadores...");
-            System.out.println();
-            System.out.println("Presiona Ctrl+C para detener el servidor");
-            System.out.println("─────────────────────────────────────────────────");
-            System.out.println();
             
-            // Bucle infinito: aceptar conexiones
             while (activo) {
                 try {
-                    // Esperar nueva conexión (bloqueante)
                     Socket clienteSocket = serverSocket.accept();
                     clientesConectados++;
                     
@@ -59,7 +46,6 @@ public class Servidor {
                     System.out.println("═══════════════════════════════════════════════");
                     System.out.println();
                     
-                    // Crear un hilo para manejar este cliente
                     ManejadorCliente manejador = new ManejadorCliente(clienteSocket);
                     manejador.start();
                     
@@ -79,10 +65,7 @@ public class Servidor {
             detener();
         }
     }
-    
-    /**
-     * Detiene el servidor y cierra todas las conexiones
-     */
+
     public void detener() {
         activo = false;
         
@@ -104,10 +87,7 @@ public class Servidor {
             System.err.println("[Servidor] Error al cerrar: " + e.getMessage());
         }
     }
-    
-    /**
-     * Hook para detener el servidor con Ctrl+C
-     */
+
     static {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("\n[Servidor] Señal de interrupción recibida...");
